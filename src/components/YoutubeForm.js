@@ -16,40 +16,63 @@ function YoutubeForm() {
         //error.name=''This field is required
         let errors = {}
         if (!values.name) {
-            errors.name = 'Required'
+            errors.name = 'please fill the required field'
         }
         if (!values.email) {
-            errors.email = 'Required'
+            errors.email = 'please fill the required field'
         } else if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(values.email)) {
             errors.email = 'Invalid email format'
         }
         if (!values.channel) {
-            errors.channel = 'Required'
+            errors.channel = 'please fill the required field'
         }
         return errors
     }
+
+
     const formik = useFormik({
         initialValues,
         onSubmit,
         validate
     })
-    console.debug("Form errors", formik.errors)
     return (
-        <div>
-            <form onSubmit={formik.handleSubmit}>
-                <label htmlFor='name'>name</label>
-                <input type="text" id="name" name="name" onChange={formik.handleChange} value={formik.values.name} />
-                {formik.errors.name ? <div>{formik.errors.name}</div> : ""}
-                <label htmlFor='email'>E-mail</label>
-                <input type="email" id="email" name="email" onChange={formik.handleChange} value={formik.values.email} />
-                {formik.errors.email ? <div>{formik.errors.email}</div> : ""}
+        <div className='container-fluid vh-100 appBgcolor align-items-center d-flex  justify-content-center'>
+            <div className='border border-primary  rounded p-4 cardBgcolor'>
+                <form onSubmit={formik.handleSubmit}>
+                    <div className="box-body ">
+                        <div className='form-group mb-3'>
+                            <label htmlFor='name'>Name  <span className='text-danger small'>*</span></label>
+                            <input type="text" id="name" name="name"
+                                className='form-control border-primary w-100 m-0'
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
+                                value={formik.values.name} />
+                            {formik.touched.name && formik.errors.name ? <span className='text-danger small'>{formik.errors.name}</span> : null}
+                        </div>
+                        <div className='form-group mb-3'>
+                            <label htmlFor='email'>E-mail  <span className='text-danger small'>*</span></label>
+                            <input type="email" id="email" name="email"
+                                className='form-control border-primary w-100 m-0'
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
 
-                <label htmlFor='channel'>Channel</label>
-                <input type="channel" id="channel" name="channel" onChange={formik.handleChange} value={formik.values.channel} />
-                {formik.errors.channel ? <div>{formik.errors.channel}</div> : ""}
+                                value={formik.values.email} />
+                            {formik.touched.email && formik.errors.email ? <span className='text-danger small'>{formik.errors.email}</span> : null}
+                        </div>
+                        <div className='form-group mb-3'>
+                            <label htmlFor='channel'>Channel  <span className='text-danger small'>*</span></label>
+                            <input type="text" id="channel" name="channel"
+                                className='form-control border-primary w-100 m-0'
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur}
 
-                <button type="submit">Submit</button>
-            </form>
+                                value={formik.values.channel} />
+                            {formik.touched.channel && formik.errors.channel ? <span className='text-danger small '>{formik.errors.channel}</span> : null}
+                        </div>
+                        <button type="submit" className='btn btn-primary float-end'>Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }

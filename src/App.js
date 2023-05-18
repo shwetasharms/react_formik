@@ -1,7 +1,7 @@
 // npm i formik
+//npm i bootstrap
+//npm i yup 
 
-
-import logo from './logo.svg';
 import './App.css';
 import YoutubeForm from './components/YoutubeForm';
 
